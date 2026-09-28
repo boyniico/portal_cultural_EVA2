@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--TITLE BLOCK-->
+    <title>{% block title %}{% endblock %} | Portal Cultural</title>
+    <!--END OF TITLE BLOCK-->
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom-color.css' %}?v=3">
+    <link rel="stylesheet" href="{% static 'css/custom-font.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100 custom-color-bg custom-color-text-dark">
+    <nav class="navbar navbar-expand-lg custom-color-dark shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold custom-color-text-light" href="{% url 'home' %}">
+                PORTAL CULTURAL
+            </a>
+
+            <div class="d-flex align-items-center gap-2 order-lg-last">
+                <!-- BOTÓN ACTIVADOR DEL OFFCANVAS -->
+                <button class="btn custom-color-btn-accent position-relative d-flex align-items-center gap-2"
+                    type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas"
+                    aria-controls="cartOffcanvas">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                        class="bi bi-cart3" viewBox="0 0 16 16">
+                        <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                    </svg>
+                    <span class="d-none d-md-inline fw-bold">Carrito</span>
+                    <span id="cart-count" class="badge rounded-pill custom-color-btn-primary">0</span>
+                </button>
+
+                <button
+                    class="btn btn-sm custom-color-btn-primary ms-2 d-flex align-items-center justify-content-center p-2"
+                    onclick="toggleTheme()" id="themeToggleBtn" title="Cambiar modo claro/oscuro"
+                    style="width: 38px; height: 38px; border-radius: 50%;">
+                    <!-- El icono se actualizará dinámicamente -->
+                    <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                        class="bi bi-moon-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M6 .278a.768.768 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z" />
+                    </svg>
+                </button>
+
+                <script>
+                    function toggleTheme() {
+                        document.body.classList.toggle('light-mode');
+                        const isLight = document.body.classList.contains('light-mode');
+                        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+                    }
+
+                    // Cargar preferencia guardada al abrir o recargar la página
+                    if (localStorage.getItem('theme') === 'light') {
+                        document.body.classList.add('light-mode');
+                    }
+                </script>
+
+                <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-3">
+                    <li class="nav-item">
+                        <a class="nav-link custom-color-text-light" href="{% url 'home' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-color-text-light" href="{% url 'music_catalog' %}">Música</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-color-text-light" href="{% url 'books_catalog' %}">Libros</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="custom-color-header py-4 shadow-sm mb-4">
+        <div class="container d-flex flex-column gap-2 text-center">
+            <h1 class="h3 mb-0 fw-bold">
+                <!--HEADER TITLE BLOCK-->
+                {% block header_title %}¡Bienvenido a tu Espacio Cultural!{% endblock %}
+                <!--END OF HEADER TITLE BLOCK-->
+            </h1>
+            <p class="lead mb-0 custom-color-text-dark">
+                <!--HEADER SUBTITLE BLOCK-->
+                {% block header_subtitle %}Un lugar diseñado para ti, donde la música, la lectura y la cultura se
+                conectan en un solo lugar.{% endblock %}
+                <!--END OF HEADER SUBTITLE BLOCK-->
+            </p>
+        </div>
+    </header>
+
+    <main class="container flex-grow-1 mb-5">
+        <!--CONTENT BLOCK-->
+        {% block content %}
+        {% endblock %}
+        <!--END OF CONTENT BLOCK-->
+    </main>
+
+    <!-- ESTRUCTURA DEL OFFCANVAS (CARRITO) -->
+    <div class="offcanvas offcanvas-end custom-color-card" tabindex="-1" id="cartOffcanvas"
+        aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header border-bottom custom-color-border-accent">
+            <h5 class="offcanvas-title fw-bold custom-color-text-dark" id="cartOffcanvasLabel">Tu Carrito de Compras
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between">
+            <div id="cart-items">
+                <!-- Los items se inyectan dinámicamente aquí -->
+            </div>
+
+            <div class="mt-3 pt-3 border-top custom-color-border-accent">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fw-bold fs-5 custom-color-text-dark">Total:</span>
+                    <span id="cart-total" class="fw-bold fs-5 custom-color-text-dark">$0 CLP</span>
+                </div>
+                <button id="btn-checkout" class="btn w-100 fw-bold custom-color-btn-primary py-2" disabled>
+                    Proceder al Pago
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMACIÓN DE COMPRA -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-color-bg border-0 shadow">
+                <div class="modal-header custom-color-dark custom-color-text-light">
+                    <h5 class="modal-title fw-bold" id="checkoutModalLabel">¡Compra Exitosa! 🎉</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-4">
+                    <div class="mb-3 text-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
+                            class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l5.002-5.999a.75.75 0 0 0-.012-1.056z" />
+                        </svg>
+                    </div>
+                    <h4 class="fw-bold custom-color-text-dark">¡Muchas gracias por tu compra!</h4>
+                    <p class="custom-color-text-muted mb-3">Hemos recibido tu pedido correctamente.</p>
+
+                    <div class="card p-3 custom-color-card border-0 mb-3 text-start">
+                        <p class="mb-1"><strong>N° de Orden:</strong> <span id="order-number"
+                                class="text-primary">#000000</span></p>
+                        <p class="mb-0"><strong>Total Pagado:</strong> <span id="order-total" class="fw-bold">$0
+                                CLP</span></p>
+                    </div>
+                    <small class="custom-color-text-muted">Se ha enviado un comprobante de prueba a tu correo.</small>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn custom-color-btn-primary fw-bold px-4"
+                        data-bs-dismiss="modal">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="custom-color-dark custom-color-text-light text-center py-3 mt-auto">
+        <div class="container">
+            <p class="mb-0 small">&copy; 2026 Portal Cultural - Programación Back End</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
+</body>
+
+</html>

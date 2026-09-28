@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ album.title }}{% endblock %}
+{% block header_title %}{{ album.title }}{% endblock %}
+{% block header_subtitle %}{{ album.artist }} — {{ album.year }}{% endblock %}
+
+{% block content %}
+    {% include 'components/_detail.html' with item=album catalog_url='music_catalog' year_label='Año de Lanzamiento' %}
+{% endblock %}

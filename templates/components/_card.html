@@ -1,0 +1,64 @@
+{% load static %}
+
+<div class="col" data-stock-item data-id="{{ item.id }}" data-type="{{ detail_url }}" data-view-type="card">
+    <div class="card h-100 border-0 shadow-sm custom-color-card">
+        {% if item.image %}
+            <img src="{{ item.image.url }}" class="card-img-top" style="height: 380px; object-fit: cover;" alt="{{ item.title }}">
+        {% else %}
+            <img src="{% static 'images/default.jpg' %}" class="card-img-top" style="height: 380px; object-fit: cover;" alt="Sin imagen">
+        {% endif %}
+
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold custom-color-text-dark">{{ item.title }}</h5>
+            <!-- Accedemos al nombre del artista/autor mediante la relación ForeignKey -->
+            <p class="card-text custom-color-text-muted mb-1">
+                {% if item.artist %}{{ item.artist.name }}{% elif item.author %}{{ item.author.name }}{% endif %}
+            </p>
+            
+            <div class="d-flex flex-wrap gap-1 mb-2">
+                {% if item.genre %}
+                    <!-- CORRECCIÓN: Reemplazamos text-light por custom-color-text-dark y ajustamos el borde -->
+                    <span class="badge border custom-color-border-accent custom-color-text-dark bg-transparent">{{ item.genre.name }}</span>
+                {% endif %}
+                {% if item.stock > 0 %}
+                <span class="badge bg-success bg-opacity-25 text-success border border-success stock-badge">Stock disponible</span>
+                {% else %}
+                <span class="badge bg-danger bg-opacity-25 text-danger border border-danger stock-badge">Agotado</span>
+                {% endif %}
+            </div>
+
+            {% if item.price %}
+            <p class="fw-bold fs-5 custom-color-text-dark my-2">${{ item.price }} CLP</p>
+            {% endif %}
+
+            <div class="d-flex gap-2 mt-auto">
+                <a href="{% url detail_url item.id %}" class="btn btn-sm custom-color-btn-accent fw-bold flex-grow-1">
+                    Ver Detalles
+                </a>
+
+                {% if item.stock > 0 %}
+                <button type="button" 
+                        class="btn btn-sm custom-color-btn-primary fw-bold btn-add-cart px-3"
+                        data-id="{{ item.id }}"
+                        data-title="{{ item.title }}"
+                        data-price="{{ item.price }}"
+                        data-image="{% if item.image %}{{ item.image.url }}{% endif %}"
+                        data-stock="{{ item.stock }}"
+                        data-type="{{ detail_url }}"
+                        data-view-type="card"
+                        onclick="addToCart(this)"
+                        title="Agregar al Carrito">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                    </svg>
+                </button>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card-footer bg-transparent border-0 pt-0">
+            <small class="custom-color-text-muted">Año: {{ item.year }}</small>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,180 @@
+/* ==========================================
+   SYNTH PALETTE (MODO OSCURO Y CLARO)
+   ========================================== */
+
+/* 1. BACKGROUNDS (Modo Oscuro por defecto) */
+.custom-color-bg {
+    background-color: #16151d; /* Fondo general suave */
+}
+
+.custom-color-header {
+    background-color: #1f1d2b; /* Banners y encabezados */
+}
+
+.custom-color-dark {
+    background-color: #12111a; /* Navbar y Footer */
+}
+
+.custom-color-accent {
+    background-color: #f4b8e4; /* Soft Pink */
+}
+
+.custom-color-card {
+    background-color: #232030; /* Tarjetas */
+}
+
+
+/* 2. TYPOGRAPHY */
+.custom-color-text-dark {
+    color: #e2e1f4; /* Lavanda claro para títulos */
+}
+
+.custom-color-text-muted {
+    color: #a5a3bc; /* Gris lavanda suave */
+}
+
+.custom-color-text-light {
+    color: #ffffff;
+}
+
+
+/* 3. BORDERS */
+.custom-color-border-accent {
+    border-color: #8caaee !important; 
+}
+
+.custom-color-border-dark {
+    border-color: #f4b8e4 !important; 
+}
+
+
+/* 4. BUTTONS & STATES (Modo Oscuro) */
+.custom-color-btn-primary {
+    background-color: #f4b8e4; 
+    color: #181825;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-color-btn-primary:hover {
+    background-color: #ea999c;
+    color: #181825;
+    box-shadow: 0 0 12px rgba(244, 184, 228, 0.3);
+}
+
+.custom-color-btn-accent {
+    background-color: #a6e3a1; 
+    color: #181825;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-color-btn-accent:hover {
+    background-color: #94e2d5;
+    color: #181825;
+    box-shadow: 0 0 12px rgba(166, 227, 161, 0.3);
+}
+
+
+/* ==========================================
+   MODO CLARO (Con mayor contraste y definición)
+   ========================================== */
+
+/* Fondo general de la página más marcado (gris muy claro limpio) */
+body.light-mode.custom-color-bg {
+    background-color: #f1f3f6 !important;
+}
+
+/* Header con un tono gris-azulado definido para que resalte del fondo */
+body.light-mode .custom-color-header {
+    background-color: #e2e6ed !important;
+    border-bottom: 1px solid #cbd5e1;
+}
+
+/* Navbar y Footer con un tono sólido estructurado */
+body.light-mode .custom-color-dark {
+    background-color: #cbd5e1 !important;
+    border-bottom: 1px solid #94a3b8;
+}
+
+body.light-mode .custom-color-accent {
+    background-color: #f472b6 !important; /* Rosa más intenso y visible */
+}
+
+/* Tarjetas totalmente blancas con borde sutil y sombra marcada para que despeguen del fondo */
+body.light-mode .custom-color-card {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+body.light-mode.custom-color-text-dark,
+body.light-mode .custom-color-text-dark {
+    color: #0f172a !important; /* Texto principal casi negro para máxima lectura */
+}
+
+body.light-mode .custom-color-text-muted {
+    color: #475569 !important; /* Texto secundario oscuro y legible */
+}
+
+/* Textos dentro de zonas oscuras/headers en modo claro */
+body.light-mode .navbar-dark .custom-color-text-light,
+body.light-mode .custom-color-dark.custom-color-text-light {
+    color: #0f172a !important;
+}
+
+body.light-mode .custom-color-border-accent {
+    border-color: #3b82f6 !important; 
+}
+
+body.light-mode .custom-color-border-dark {
+    border-color: #cbd5e1 !important; 
+}
+
+/* Botones principales en modo claro (colores sólidos con mejor contraste) */
+body.light-mode .custom-color-btn-primary {
+    background-color: #f472b6 !important;
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+body.light-mode .custom-color-btn-primary:hover {
+    background-color: #db2777 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(244, 114, 182, 0.5);
+}
+
+body.light-mode .custom-color-btn-accent {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+body.light-mode .custom-color-btn-accent:hover {
+    background-color: #16a34a !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+/* Transición suave general */
+body, .card, .navbar, .header, footer, .btn {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ==========================================
+    CORRECCIÓN DE HOVER EN NAVBAR (MODOS OSCURO Y CLARO)
+   ========================================== */
+
+/* Modo Oscuro (Por defecto): Hover con color brillante para que destaque */
+.navbar .nav-link:hover,
+.navbar .nav-link:focus,
+.navbar .navbar-brand:hover {
+    color: #f4b8e4 !important; /* Soft Pink / Acento claro */
+}
+
+/* Modo Claro: Hover con tono fucsia oscuro para contraste */
+body.light-mode .navbar .nav-link:hover,
+body.light-mode .navbar .nav-link:focus,
+body.light-mode .navbar .navbar-brand:hover {
+    color: #db2777 !important; 
+}

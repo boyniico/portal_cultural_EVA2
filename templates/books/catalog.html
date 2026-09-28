@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Catalog{% endblock %}
+{% block header_title %}Catálogo de Libros{% endblock %}
+{% block header_subtitle %}Una selección especial de novelas, autores e historias inolvidables.{% endblock %}
+
+{% block content %}
+<!-- Barra de búsqueda -->
+<form method="GET" action="" class="mb-4 d-flex gap-2">
+    <input type="text" name="q" value="{{ query|default:'' }}" class="form-control" placeholder="Buscar por título, autor o género...">
+    <button type="submit" class="btn btn-outline-primary">Buscar</button>
+    {% if query %}
+        <a href="{% url 'books_catalog' %}" class="btn btn-outline-secondary">Limpiar</a>
+    {% endif %}
+</form>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for book in page_obj %}
+        {% include 'components/_card.html' with item=book detail_url='book_detail' %}
+    {% empty %}
+        <!-- Mensaje cuando no hay libros -->
+        <div class="col-12">
+            <div class="card custom-color-card border-0 shadow-sm text-center py-5 my-4">
+                <div class="card-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-journal-x custom-color-text-muted mb-3" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M6.146 6.146a.5.5 0 0 1 .708 0L8 7.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 8l1.147 1.146a.5.5 0 0 1-.708.708L8 8.707 6.854 9.854a.5.5 0 0 1-.708-.708L7.293 8 6.146 6.854a.5.5 0 0 1 0-.708z"/>
+                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                    </svg>
+                    <h4 class="fw-bold custom-color-text-dark">No hay productos literarios por el momento</h4>
+                    <p class="custom-color-text-muted mb-0">Estamos preparando nuevo contenido cultural para ti. ¡Vuelve pronto!</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Controles de Paginación (Ocultar si no hay elementos) -->
+{% if page_obj.has_other_pages %}
+    {% include 'components/_pagination.html' with page_obj=page_obj %}
+{% endif %}
+{% endblock %}

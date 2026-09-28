@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Music Catalog{% endblock %}
+{% block header_title %}Catálogo Musical{% endblock %}
+{% block header_subtitle %}Una selección especial de álbumes, artistas e historias sonoras.{% endblock %}
+
+{% block content %}
+<!-- Barra de búsqueda -->
+<form method="GET" action="" class="mb-4 d-flex gap-2">
+    <input type="text" name="q" value="{{ query|default:'' }}" class="form-control" placeholder="Buscar por álbum, artista o género...">
+    <button type="submit" class="btn btn-outline-primary">Buscar</button>
+    {% if query %}
+        <a href="{% url 'music_catalog' %}" class="btn btn-outline-secondary">Limpiar</a>
+    {% endif %}
+</form>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for album in page_obj %}
+        {% include 'components/_card.html' with item=album detail_url='music_detail' %}
+    {% empty %}
+        <!-- Mensaje cuando no hay álbumes -->
+        <div class="col-12">
+            <div class="card custom-color-card border-0 shadow-sm text-center py-5 my-4">
+                <div class="card-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-music-note-beamed custom-color-text-muted mb-3" viewBox="0 0 16 16">
+                        <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13c0-1.104 1.12-2 2.5-2s2.5.896 2.5 2zm9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2z"/>
+                        <path fill-rule="evenodd" d="M14 11V2h1v9h-1zM3 13V1h1v12H3z"/>
+                        <path d="M11 3v10c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2z"/>
+                    </svg>
+                    <h4 class="fw-bold custom-color-text-dark">No hay productos musicales por el momento</h4>
+                    <p class="custom-color-text-muted mb-0">Estamos actualizando nuestro catálogo sonoro. ¡Vuelve pronto!</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Controles de Paginación (Ocultar si no hay elementos) -->
+{% if page_obj.has_other_pages %}
+    {% include 'components/_pagination.html' with page_obj=page_obj %}
+{% endif %}
+{% endblock %}

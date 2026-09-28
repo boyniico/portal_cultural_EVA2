@@ -1,0 +1,63 @@
+{% load static %}
+
+<div class="container my-4" data-stock-item data-id="{{ item.id }}" data-type="{{ request.resolver_match.url_name }}" data-view-type="detail">
+    <a href="javascript:history.back()" class="btn btn-secondary mb-3">← Volver al catálogo</a>
+
+    <!-- CAMBIO: Reemplazamos custom-color-bg por custom-color-card para que la tarjeta contraste bien -->
+    <div class="card border-0 shadow-sm custom-color-card overflow-hidden">
+        <div class="row g-0">
+            <div class="col-md-5 d-flex align-items-center justify-content-center p-3">
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" class="img-fluid rounded shadow-sm"
+                        style="max-height: 400px; width: auto; object-fit: contain;" alt="{{ item.title }}">
+                {% endif %}
+            </div>
+            <div class="col-md-7 d-flex flex-column justify-content-between p-4">
+                <div>
+                    {% if item.genre %}
+                        <span class="badge bg-secondary mb-2">{{ item.genre.name }}</span>
+                    {% endif %}
+                    
+                    <!-- TÍTULO Y TEXTOS CON CLASES DE COLOR ROBUSTAS -->
+                    <h2 class="fw-bold custom-color-text-dark">{{ item.title }}</h2>
+                    <h4 class="custom-color-text-muted mb-4">
+                        {% if item.artist %}{{ item.artist.name }}{% elif item.author %}{{ item.author.name }}{% endif %}
+                    </h4>
+                    <p class="fs-5 custom-color-text-dark">{{ year_label|default:"Año" }}: <strong>{{ item.year }}</strong></p>
+                    <h2 class="fw-bold custom-color-text-dark">${{ item.price }} CLP</h2>
+
+                    <hr class="my-4 custom-color-border-accent">
+
+                    <div class="mb-3">
+                        <span class="fs-5 me-2 custom-color-text-dark">Stock en bodega:</span>
+                        {% if item.stock > 1 %}
+                        <span class="badge bg-success fs-6 stock-badge">{{ item.stock }} unidades disponibles</span>
+                        {% elif item.stock == 1 %}
+                        <span class="badge bg-success fs-6 stock-badge">{{ item.stock }} unidad disponible</span>
+                        {% else %}
+                        <span class="badge bg-danger fs-6 stock-badge">Agotado</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="action-btn-container">
+                    {% if item.stock > 0 %}
+                    <button class="btn custom-color-btn-primary btn-lg w-100 mt-3 fw-bold btn-add-cart"
+                            data-id="{{ item.id }}"
+                            data-title="{{ item.title }}"
+                            data-price="{{ item.price }}"
+                            data-image="{% if item.image %}{{ item.image.url }}{% endif %}"
+                            data-stock="{{ item.stock }}"
+                            data-type="{{ request.resolver_match.url_name }}"
+                            data-view-type="detail"
+                            onclick="addToCart(this)">
+                        Añadir al Carrito
+                    </button>
+                    {% else %}
+                    <button class="btn btn-secondary btn-lg w-100 mt-3 disabled">No Disponible</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Inicio - Tienda
+{% endblock %}
+
+{% block content %}
+<section class="p-5 mb-5 rounded-3 shadow-sm custom-color-dark custom-color-text-light text-center">
+    <div class="container-fluid py-3">
+        <h1 class="display-5 fw-bold mb-3">Tu Tienda de Música y Libros</h1>
+        <p class="col-md-8 fs-5 mx-auto mb-4 custom-color-text-muted">
+            Explora nuestro catálogo exclusivo para amantes del arte, la literatura y el sonido.
+            Encuentra y adquiere tus álbumes favoritos y mejores lecturas desde un solo lugar.
+        </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="{% url 'music_catalog' %}" class="btn custom-color-btn-primary btn-lg px-4 gap-3 fw-semibold">
+                Comprar Música
+            </a>
+            <a href="{% url 'books_catalog' %}" class="btn custom-color-btn-accent btn-lg px-4 fw-semibold">
+                Comprar Libros
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="row g-4 mb-4">
+
+    <!-- Tarjeta Música -->
+    <div class="col-md-6">
+        <div class="card h-100 border-0 shadow-sm p-3 custom-color-card">
+            <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                    <h2 class="h4 card-title fw-bold mb-2 custom-color-text-dark">Tienda de Música</h2>
+                    <p class="card-text custom-color-text-muted">
+                        Descubre vinilos de diversos géneros listos para añadir a tu colección.
+                    </p>
+                </div>
+                <a href="{% url 'music_catalog' %}" class="btn btn-sm custom-color-btn-accent mt-3 align-self-start fw-bold">
+                    Ver Catálogo de Ventas &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tarjeta Libros -->
+    <div class="col-md-6">
+        <div class="card h-100 border-0 shadow-sm p-3 custom-color-card">
+            <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                    <h2 class="h4 card-title fw-bold mb-2 custom-color-text-dark">Librería</h2>
+                    <p class="card-text custom-color-text-muted">
+                        Explora novedades editoriales, bestsellers y obras clásicas disponibles para comprar en línea.
+                    </p>
+                </div>
+                <a href="{% url 'music_catalog' %}" class="btn btn-sm custom-color-btn-accent mt-3 align-self-start fw-bold">
+                    Ver Libros Disponibles &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
